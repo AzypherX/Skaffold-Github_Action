@@ -40,7 +40,8 @@ jobs:
          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 
     - name: Docker configuration
-      run: gcloud auth configure-docker    
+      run: gcloud auth configure-docker \
+       us-central1-docker.pkg.dev   
    
 
     # Build the Docker image
