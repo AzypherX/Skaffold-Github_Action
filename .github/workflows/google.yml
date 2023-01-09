@@ -53,6 +53,11 @@ jobs:
     - name: Publish
       run: |-
         docker push "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA"
+    #Install Skaffold
+    - name: Install Skaffold
+      run: |
+        curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-arm64 && \
+        sudo install skaffold /usr/local/bin/
     # Deploy through skaffold
     - name: Deploy to GKE with skaffold
       run: skaffold run
