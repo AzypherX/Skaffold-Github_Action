@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: flask-app
-        image: us-central1-docker.pkg.dev/onboarding-host-77ae2923a5f448/demo/static-site@latest
+        image: us-central1-docker.pkg.dev/onboarding-host-77ae2923a5f448/demo/static-site
         ports: 
         - containerPort: 8080
 
