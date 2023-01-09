@@ -14,7 +14,7 @@ env:
 
 jobs:
   build-push-gcr:
-    name: Build and push to gcr
+    name: Build push and deploy
     runs-on: ubuntu-latest
 
     permissions:
@@ -44,14 +44,12 @@ jobs:
     # Build the Docker Image
     - name: Build
       run: |-
-        docker build $IMAGE_NAME .
+        docker build -t "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:v1" .
+
     # Push the Docker image to Google Artifact Registry
     - name: Publish
       run: |-
-        docker tag $IMAGE_NAME:latest $GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/images/$IMAGE_NAME:latest
-        docker tag $IMAGE_NAME:latest $GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/images/$IMAGE_NAME:$GIT_TAG
-        docker push $GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/images/$IMAGE_NAME:latest
-        docker push $GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/images/$IMAGE_NAME:$GIT_TAG
+        docker push "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:v1"
     #Install Skaffold
     - name: Install Skaffold
       run: |
